@@ -4,7 +4,7 @@ body {
   }
   
   .main-content {
-    margin: 6em auto;
+    margin: 3em auto;
     display: grid;
     width: 750px;
     grid: 100px 80px 160px 100px 120px/80px 80px repeat(2, 1fr) 75px 75px 2fr;
@@ -867,6 +867,15 @@ body {
     z-index: 30;
   }
   
+  .titulo{
+    font: 600 14px/1 "Poppins", sans-serif;
+    text-transform: uppercase;
+    color: #096b72;
+    text-align: center;
+    z-index: 30;
+    margin: 1em auto;
+    font-size: 82px;
+  }
   .office .name {
     width: 200%;
     transform: rotate(-90deg);
