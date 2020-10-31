@@ -404,7 +404,7 @@ body {
     width: 45px;
     height: 35px;
     overflow: hidden;
-    z-index: 10;
+    z-index: 20;
   }
   .door-hor:before {
     content: "";
@@ -432,7 +432,7 @@ body {
     height: 45px;
     width: 35px;
     overflow: hidden;
-    z-index: 10;
+    z-index: 20;
   }
   .door-ver:before {
     content: "";
@@ -929,3 +929,39 @@ body {
     top: 45%;
     left: 60%;
   }
+
+
+#.hover
+{
+  width: 40px;
+  height: 80px;
+  background: red;
+  position: absolute;
+  bottom: 200px;
+  left: 200px;
+  text-align: center;
+  color: #fff;
+  padding-top: 10px;
+}
+
+.bar2
+{
+  bottom: 200px;
+  left: 250px;
+  height: 100px;
+}
+
+#tooltip
+{
+  width: 200px;
+  position: absolute;
+  display:none;
+  border: 1px solid blue;
+  text-align: center;
+}
+
+span
+{
+  border: 1px green solid;
+}
+  
