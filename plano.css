@@ -930,38 +930,40 @@ body {
     left: 60%;
   }
 
-
-#.hover
-{
-  width: 40px;
-  height: 80px;
-  background: red;
-  position: absolute;
-  bottom: 200px;
-  left: 200px;
-  text-align: center;
-  color: #fff;
-  padding-top: 10px;
-}
-
-.bar2
-{
-  bottom: 200px;
-  left: 250px;
-  height: 100px;
-}
-
-#tooltip
-{
-  width: 200px;
-  position: absolute;
-  display:none;
-  border: 1px solid blue;
-  text-align: center;
-}
-
-span
-{
-  border: 1px green solid;
-}
+  .tooltip {
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
   
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 60;
+    bottom: 37%;
+    left: 32%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
