@@ -953,17 +953,25 @@ body {
   }
   
   .tooltip .tooltiptext::after {
-    content: "";
+    content: " ";
     position: absolute;
-    top: 100%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #555 transparent transparent transparent;
+    
   }
   
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+  }
+
+  .tooltip.bottom .tooltiptext::after{    
+    bottom: 100%;
+    border-color: transparent transparent #555 transparent;
+  }
+  .tooltip.top .tooltiptext::after{
+    top: 100%;
+    border-color: #555 transparent transparent transparent;
   }
