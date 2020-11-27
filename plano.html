@@ -7,28 +7,41 @@
   <body>    
     <div>
 
-      <header class= "titulo"><a href='prueba.html'>SMART HOME</a></header>
+      <header class= "titulo"><a href='/graficos/gastoluzanual.html'>SMART HOME</a></header>
       <div class="main-content">
+        <div id = "tooltip"></div>
+        
         <div class="office">
           <div class="door-hor"></div>
           <div class="table"></div>
           <div class="sofa-des"></div>
           <div class="window-ver"></div>
           <div class="name">despacho</div>
+
+          <div class="glowButton"></div>
+          
+<!-- <div class="bulb"></div>  -->
+          <i class="fas fa-plane-slash"></i>
         </div>
 
         <div class="kitchen">
           <div class="door-ver"></div>
           <div class="door-ver"></div>
-          <div class="ref"></div>
+          <a href='/graficos/consumoFrigorifico.html'>
+            <div class="ref utility" name="Nevera"></div>
+          </a>
           <div class="rug"></div>
           <div class="cabinets">
-            <div class="stove"></div>
+            <a href='/graficos/consumoVitroceramica.html'>
+              <div class="stove utility" name="Vitroceramica"></div>
+            </a>
           </div>
-          <div class="sink">
-            <div class="sink-tap-1"></div>
-            <div class="sink-tap-2"></div>
-          </div>
+          <a href='/graficos/gasto-agua-fregadero.html'>
+            <div class="sink utility" name="Fregadero">
+              <div class="sink-tap-1"></div>
+              <div class="sink-tap-2"></div>
+            </div>
+          </a>
           <div class="island">
             <div class="chair"></div>
           </div>
@@ -38,9 +51,15 @@
         <div class="bathroom-2">
           <div class="window-hor"></div>
           <div class="door-hor"></div>
-          <div class="shower"></div>
-          <div class="toilet"></div>
-          <div class="vanity"></div>
+          <a href='/graficos/gasto-agua-ducha-2.html'>
+            <div class="shower utility" name="Ducha"></div>
+          </a>
+          <a href='/graficos/gasto-agua-wc-2.html'>
+            <div class="toilet utility" name="WC"></div>
+          </a>
+          <a href='/graficos/gasto-agua-lavabo-2.html'>
+            <div class="vanity utility" name="Lavabo"></div>
+          </a>
           <div class="rug"></div>
           <div class="name">bano 2</div>
         </div>
@@ -65,7 +84,7 @@
           <div class="sofa"></div>
           <div class="coffee-table"></div>
           <div class="corner-table"></div>
-          <div class="tv-set"></div>
+          <div class="tv-set utility" name="Television"></div>
           <div class="sofa-corner"></div>
           <div class="name">salon</div>
         </div>
@@ -90,18 +109,12 @@
           <div class="window-hor"></div>
           <div class="rug"></div>
           <a href='graf1 - copia (12).html'>
-            <div class="tooltip bottom">
-              <div class="bathtub"></div>
-              <span class="tooltiptext">Ducha</span>
-            </div>
+            <div class="bathtub utility" name="Bañera"></div>
           </a>
-          <div class="vanity"></div>
+          <div class="vanity utility" name="Lavabo"></div>
 
-          <a href='graf1.html'>
-            <div class="tooltip top">
-              <div class="toilet"></div>
-              <span class="tooltiptext">Vater</span>
-            </div>
+          <a href='graficos/gastoluzanual.html'>
+            <div class="toilet utility" name="WC"></div>
           </a>
           <a href='graf1.html'>
             <div class="name">bano 1</div>
@@ -110,6 +123,9 @@
 
         <div class="pasillo1">
           <div class="name">pasillo</div>
+          <div class="door-ver"></div>
+          <div class="door-ver"></div>
+
         </div> 
 
         <div class="pasillo2"></div> 
@@ -120,17 +136,18 @@
           <div class="door-sliding"></div>
           <div class="real-patio">
             <div class="name">patio</div>   
-          </div>
+          </div> 
           <div class="patio-table"></div>
           <div class="patio-chair"></div>
           <div class="patio-chair"></div>
           <div class="cesped"></div>
-          <div class="manguera1"></div>     
+          <div class="manguera1 utility" name="Manguera"></div>     
           <div class="manguera2"></div>   
           <div class="manguera3"></div>       
           <div class="manguera4"></div>   
           <div class="manguera5"></div>   
           <div class="manguera6"></div>   
+          <div class="panel-solar utility" name="Panel solar"></div>  
         </div>
       </div>
 
@@ -138,7 +155,12 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         
-    <script type="text/javascript" src="algo.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="tooltip.js"></script>
+
+    <script src="bombilla.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
   </body>
 </html>
     
