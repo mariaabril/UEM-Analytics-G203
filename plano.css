@@ -1,14 +1,30 @@
 body {  
     background: black;
     font-family: "Poppins", sans-serif;
+    margin-left: 60px;
   }
   
   a {
     color: /*#096b72*/ #14c8ce;
     text-decoration: none; /* no underline */
   }
+  #parent{
+    display: grid;
+    grid-template-columns: 30% 65%; 
+    grid-template-rows: 100%;
+    grid-column-gap: 11px;
+    
+  }
+  #KPIs{
+    width: 10px;
+    /*grow to rest of container*/
+    background: lightgreen;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+  }
   .main-content {
-    margin: 3em auto;
     display: grid;
     width: 750px;
     grid: 100px 80px 160px 100px 120px/80px 80px repeat(2, 1fr) 75px 75px 2fr;
@@ -16,6 +32,12 @@ body {
     border-width: 4px 0 0 4px;
     position: relative;
     background: rgb(68, 67, 67);
+    margin-top: 0px;
+    margin-bottom: 128px;
+    grid-column-start: 2;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 1;
   }
   .main-content > div {
     position: relative;
@@ -66,6 +88,9 @@ body {
     border-width: 0 4px 0 0;
     background: rgb(68, 67, 67);
   }
+  .kitchen .window-hor {
+    left: 66px;
+  }
   .kitchen .island {
     position: absolute;
     width: 100px;
@@ -101,20 +126,44 @@ body {
   .kitchen .ref {
     position: absolute;
     border: 2px solid /*#096b72*/ #14c8ce;
-    top: -2px;
-    width: 45px;
-    height: 40px;
-    left: 8px;
+    top: 98px;
+    width: 35px;
+    height: 33px;
+    left: 178px;
   }
-  .kitchen .cabinets {
+  .kitchen .lavadora {
     position: absolute;
     border: 2px solid /*#096b72*/ #14c8ce;
     top: -2px;
-    width: 120px;
+    width: 43px;
+    height: 40px;
+    left: -9px;
+  }
+  .kitchen .lavaplatos {
+    position: absolute;
+    border: 2px solid /*#096b72*/ #14c8ce;
+    top: -2px;
+    width: 34px;
+    height: 40px;
+    left: 36px;
+  }
+  .kitchen .horno {
+    position: absolute;
+    border: 2px solid /*#096b72*/ #14c8ce;
+    top: -2px;
+    width: 39px;
+    height: 40px;
+    right: 101px;
+  }
+  .kitchen .bordes-stove {
+    position: absolute;
+    border: 2px solid /*#096b72*/ #14c8ce;
+    top: -2px;
+    width: 62px;
     height: 40px;
     right: 37px;
   }
-  .kitchen .cabinets .stove {
+  .kitchen .stove {
     position: absolute;
     width: 54px;
     height: 32px;
@@ -122,7 +171,7 @@ body {
     right: 2px;
     top: 2px;
   }
-  .kitchen .cabinets .stove:before, .kitchen .cabinets .stove:after {
+  .kitchen .stove:before, .kitchen .stove:after {
     content: "";
     position: absolute;
     width: 16px;
@@ -132,17 +181,27 @@ body {
     border: 2px solid /*#096b72*/ #14c8ce;
     left: 5px;
   }
-  .kitchen .cabinets .stove:after {
+  .kitchen .stove:after {
     right: 5px;
     left: auto;
+  }
+  .kitchen .microwave {
+    position: absolute;
+    right: -1px;
+    border: 2px solid /*#096b72*/ #14c8ce;
+    border-width: 2px 2px 0px 2px;
+    top: -2px;
+    width: 35px;
+    height: 43px;
   }
   .kitchen .sink {
     position: absolute;
     right: -1px;
     border: 2px solid /*#096b72*/ #14c8ce;
-    top: -2px;
+    border-width: 0px 2px 2px 2px;
+    top: 43px;
     width: 35px;
-    height: 98px;
+    height: 55px;
   }
   .kitchen .sink .sink-tap-1,
   .kitchen .sink .sink-tap-2 {
@@ -998,7 +1057,9 @@ body {
     cursor: pointer;
     box-shadow: 0 0 0 0 #ec008c, 0.5rem 0.5rem 30px #13092d;
     -webkit-transition: box-shadow 0.6s;
-    transition: box-shadow 0.6s;
+    transition: box-shadow 0.6s; 
+    text-align: center;
+    display: none;
   }
 
   .glowButton:hover {
@@ -1017,4 +1078,333 @@ body {
     pointer-events: none;
   }
   
+  #wind-ver{
+    left: -10px;
+    top: 54px;
+  }
+  #wind-hor{
+    left: 27px;
+    top: -10px;
+  }
+  #wind-bed1{
+    left: 84px;
+    top: -10px;
+  }
+  #wind-bed2{
+    left: 49px;
+    top: -10px;
+  }
+  #eolic{
+    left: 240px;
+    top: 157px;
+    z-index: 20;
+  }
+
+  .kitchen #lavadora{
+    left: 9px;
+    top: 7px;
+  }
+  .kitchen #lavaplatos{
+    left: 5px;
+    top: 7px;
+  }
+  .kitchen #horno{
+    left: 7px;
+    top: 7px;
+  }
+  .kitchen #vitro{
+    left: 18px;
+    top: 7px;
+  }
+  .kitchen #micro{
+    left: 5px;
+    top: 7px;
+  }
+  .kitchen #fregadero{
+    left: 3px;
+    top: 15px;
+  }
+  .kitchen #nevera{
+    left: 4px;
+    top: 3px;
+  }
+  .kitchen #temp{
+    left: 56px;
+    top: 209px;
+    z-index: 20;
+  }
+  .kitchen #bulb{
+    left: 90px;
+    top: 111px;
+    z-index: 20;
+  }
+  .kitchen #puerta1{
+    left: 200px;
+    top: 199px;
+    z-index: 22;
+  }
+  .kitchen #puerta2{
+    left: 14px;
+    top: 220px;
+    z-index: 22;
+  }
   
+
+  .bathroom-1 #banera{
+    left: 41px;
+    top: 12px;
+  }
+  .bathroom-1 #wc{
+    left: 2.5px;
+    top: -18px;
+    z-index: 2;
+  }
+  .bathroom-1 #lavabo{
+    left: 34px;
+  }  
+  .bathroom-1 #temp{
+    left: 150px;
+    top: 28px;
+    z-index: 20;
+  }
+  .bathroom-1 #bulb{
+    left: 114px;
+    top: 4px;
+    z-index: 20;
+  }
+  .bathroom-1 #puerta1{
+    left: 145px;
+    top: -8px;
+    z-index: 20;
+  }
+  .bathroom-1 #puerta2{
+    left: -8px;
+    top: 70px;
+    z-index: 20;
+  }
+  
+  .bathroom-2 #ducha{
+    left: 10px;
+    top: 8px;
+  }
+  .bathroom-2 #wc{
+    left: 2.7px;
+    top: -18px;
+    z-index: 2;
+  }
+  .bathroom-2 #lavabo{
+    left: 13px;
+    top: 2px;
+  }
+  .bathroom-2 #temp{
+    left: 8px;
+    top: 69px;
+    z-index: 20;
+  }
+  .bathroom-2 #bulb{
+    left: 59px;
+    top: 16px;
+    z-index: 20;
+  }
+  .bathroom-2 #puerta{
+    left: 54px;
+    top: 78px;
+    z-index: 20;
+  }
+
+  .living-room #tv{
+    left: 59px;
+  }
+  .living-room #temp{
+    left: 134px;
+    top: 2px;
+    z-index: 20;
+  }
+  .living-room #bulb{
+    left: 168px;
+    top: 85px;
+    z-index: 20;
+  }
+  .living-room #puerta1{
+    left: 95px;
+    top: -7px;
+    z-index: 20;
+  }
+  .living-room #puerta2{
+    left: 65px;
+    top: 198px;
+    z-index: 20;
+  }
+
+  .pasillo1 #temp{
+    left: 333px;
+    top: 36px;
+  }
+  .pasillo1 #bulb{
+    left: 403px;
+    top: 36px;
+  }
+  .pasillo1 #puerta{
+    left: -4px;
+    top: 37px;
+    z-index: 20;
+  }
+  .bedroom-1 #temp{
+    left: 260px;
+    top: 3px;
+    z-index: 20;
+  }
+  .bedroom-1 #bulb{
+    top: 39px;
+    z-index: 20;
+  }
+  .bedroom-1 #puerta{
+    left: 301px;
+    top: -9px;
+    z-index: 20;
+  }
+  .bedroom-2 #temp{
+    left: 2px;
+    top: 94px;
+    z-index: 20;
+  }
+  .bedroom-2 #bulb{
+    left: 185px;
+    top: 2px;
+    z-index: 20;
+  }
+  .bedroom-2 #puerta{
+    left: -7px;
+    top: 135px;
+    z-index: 20;
+  }
+  .office #temp{
+    left: 63px;
+    top: 209px;
+    z-index: 20;
+  }
+  .office #bulb{
+    left: 63px;
+    top: 2px;
+    z-index: 20;
+  }
+  .office #puerta{
+    left: 106px;
+    top: 220px;
+    z-index: 23;
+  }
+
+  .patio #manguera{
+    left: -12px;
+    top: -11px;
+  }
+  .patio #temp{
+    left: 10px;
+    top: 199px;
+  }
+  .patio #bulb{
+    bottom: -41px;
+    left: 103.5px;
+    z-index: 25;
+  }
+  .patio #puerta{
+    top: 102px;
+    left: 89.5px;
+    z-index: 25;
+  }
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /*Filtros*/
+  .btn {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }  
+  .btn:hover {
+    background-color: #ddd;
+  }  
+  .btn.active {
+    background-color: #666;
+    color: white;
+  }
+  .glowButton.show{
+    display: initial;
+  }
+
+  #myBtnContainer{
+    text-align: center;
+  }
+  /*dropdown menu*/
+  .dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
