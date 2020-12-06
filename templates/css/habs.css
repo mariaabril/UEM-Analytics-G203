@@ -1,0 +1,162 @@
+.bedroom-1 {
+    grid-column: 1 / span 4;
+    grid-row: 4 / span 2;
+    border: 4px solid /*#096b72*/ #14c8ce;
+    border-width: 4px 4px 4px 0;
+    background: rgb(68, 67, 67);
+  }
+  .bedroom-1 .rug {
+    left: 20%;
+    top: 20%;
+    height: 150px;
+  }
+  .bedroom-1 .door-hor {
+    top: -4px;
+    left: 288px;
+    transform: scaleX(-1);
+  }
+  .bedroom-1 .window-hor {
+    left: 30px;
+    top: auto;
+    bottom: -6px;
+    width: 200px;
+  }
+  .bedroom-1 .bed {
+    height: 100px;
+    width: 170px;
+    transform: scaleX(-1);
+    left: -2px;
+    top: 70px;
+  }
+  .bedroom-1 .bed .pillow {
+    height: 35px;
+    top: 8px;
+    right: 15px;
+  }
+  .bedroom-1 .bed .pillow:nth-child(3) {
+    bottom: 8px;
+    top: auto;
+  }
+  .bedroom-1 .bed-table {
+    width: 25px;
+    height: 25px;
+    top: 37px;
+    right: auto;
+    left: -2px;
+  }
+  .bedroom-1 .bed-table:nth-child(5) {
+    top: auto;
+    bottom: 5px;
+    width: 25px;
+    height: 25px;
+  }
+  .bedroom-1 .name {
+    width: 100px;
+    top: 25px;
+    left: 130px;
+  }.bedroom-1 #temp{
+    left: 260px;
+    top: 3px;
+    z-index: 20;
+  }
+  .bedroom-1 #bulb{
+    top: 39px;
+    z-index: 20;
+  }
+  .bedroom-1 #puerta{
+    left: 301px;
+    top: -9px;
+    z-index: 20;
+  }.bedroom-2 {
+    grid-column: 7 / span 1;
+    grid-row: 1 / span 2;
+    border: 4px solid /*#096b72*/ #14c8ce;
+    border-width: 0 4px 4px;
+    background: rgb(68, 67, 67);
+  }
+  .bedroom-2 .door-ver {
+    left: -4px;
+    bottom: 10px;
+    transform: scaleY(-1);
+  }
+  .bedroom-2 .window-hor {
+    left: 45px;
+    width: 120px;
+  }
+  
+  
+  .bedroom-2 .name {   
+    bottom: 38px;
+    left: 41px;
+  }
+  .bedroom-2 #temp{
+    left: 2px;
+    top: 94px;
+    z-index: 20;
+  }
+  .bedroom-2 #bulb{
+    left: 185px;
+    top: 2px;
+    z-index: 20;
+  }
+  .bedroom-2 #puerta{
+    left: -7px;
+    top: 135px;
+    z-index: 20;
+  }
+
+  #wind-bed1{
+    left: 84px;
+    top: -10px;
+  }
+  #wind-bed2{
+    left: 49px;
+    top: -10px;
+  }
+  
+  .bed {
+    width: 140px;
+    height: 70px;
+    position: absolute;
+    border: 2px solid /*#096b72*/ #14c8ce;
+    right: -2px;
+    top: 35px;
+    border-radius: 8px 0 0 8px;
+    background: rgb(68, 67, 67);
+  }
+  .bed .blanket {
+    width: 55%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-right: 2px solid /*#096b72*/ #14c8ce;
+    background: repeating-linear-gradient(to right, transparent, transparent 6px, rgba(9, 107, 114, 0.5) 6px, rgba(9, 107, 114, 0.5) 8px), repeating-linear-gradient(to bottom, transparent, transparent 6px, rgba(9, 107, 114, 0.5) 6px, rgba(9, 107, 114, 0.5) 8px);
+  }
+  .bed .blanket:before {
+    content: "";
+    position: absolute;
+    right: -18px;
+    width: 0;
+    height: 100%;
+    border-right: 2px solid /*#096b72*/ #14c8ce;
+  }
+  .bed .pillow {
+    width: 25px;
+    border: 2px solid /*#096b72*/ #14c8ce;
+    height: 40px;
+    border-radius: 6px;
+    right: 8px;
+    top: 14px;
+    position: absolute;
+  }
+  
+  .bed-table {
+    width: 30px;
+    height: 30px;
+    top: -2px;
+    right: -2px;
+    position: absolute;
+    border: 2px solid /*#096b72*/ #14c8ce;
+  }
+  

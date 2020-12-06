@@ -1,0 +1,55 @@
+.pasillo1 {
+    grid-row: 3 / span 1;
+    grid-column: 3 / span 3;
+    border: 4px solid /*#096b72*/ #14c8ce;
+    border-width: 4px 0 0 0;
+    top: 58px;
+    right: 160px;
+    width: 128.8%;
+    height: 61%;
+    background: rgb(68, 67, 67);
+  }
+  .pasillo1 .door-ver {
+    left: -1%;
+    top: 5%;
+  }
+  .pasillo1 .door-ver:nth-child(2) {
+    left: -1%;
+    top: 50%;
+    transform: scaleY(-1);
+  }
+
+  .pasillo2 {
+    border: 4px solid /*#096b72*/ #14c8ce;
+    border-width: 4px 0 0 4px;
+    top: 76px;
+    left: 371px;
+    width: 94%;
+    height: 328%;
+  }
+  .pasillo1 .name {
+    top: 45%;
+    left: 60%;
+  }
+  
+  .pasillo1 #temp{
+    left: 333px;
+    top: 36px;
+  }
+  .pasillo1 #bulb{
+    left: 403px;
+    top: 36px;
+  }
+  .pasillo1 #puerta{
+    left: -4px;
+    top: 37px;
+    z-index: 20;
+  }
+  .parte-abajo {
+    border: 4px solid /*#096b72*/ #14c8ce;
+    border-width: 0 0 4px 0;
+    top: 455px;
+    left: 74px;
+    width: 100%;
+    height: 1%;
+  }
