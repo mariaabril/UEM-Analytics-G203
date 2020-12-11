@@ -88,16 +88,17 @@
             .attr("y", 0);
         
         
+        var dataFilter = data.map(function(d){return {date: parseDate(d.Fecha), value:d.TempHabitacion1} })
 
     
         // Initialize line with group a
         var line = svg
           .append("path")
             .attr("clip-path", "url(#clip)")
-            .datum(data)
+            .datum(dataFilter)
             .attr("d", d3.line()
-              .x(function(d) { return x(parseDate(d.Fecha)) })
-              .y(function(d) { return y(d.TempHabitacion1) })
+              .x(function(d) { return x(d.date) })
+              .y(function(d) { return y(+d.value) })
             )
             .attr("stroke", function(d){ return myColor("TempHabitacion1") })
             .style("stroke-width", 4)
