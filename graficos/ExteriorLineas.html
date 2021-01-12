@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Add a radio button -->
+<input type="datetime-local" id="buttonXMin" value="2015-01-01T00:00:00">
+
+<!-- Add a radio button -->
+<input type="datetime-local" id="buttonXMax" value=2021-01-20T23:00:00>
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+<div id="my_dataviz"></div>
+
+<script>
+    var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
+
+  // set the dimensions and margins of the graph
+  var margin = {top:30, right: 200, bottom: 30, left: 30},
+      width = 960 - margin.left - margin.right,
+      height = 500 - margin.top - margin.bottom;
+  
+  // parse the date / time
+  var parseTime = d3.timeParse("%Y-%m-%d %H:%M:%S");
+  
+  // set the ranges
+  var x = d3.scaleTime().range([0, width]);
+  
+  var y = d3.scaleLinear().range([height, 0]);
+  
+  // define the 1st line
+  var valueline = d3.line()
+      .x(function(d) { return x(d.Fecha); })
+      .y(function(d) { return y(d.EnergiaSolar); });
+  
+  // define the 2nd line
+  var valueline2 = d3.line()
+      .x(function(d) { return x(d.Fecha); })
+      .y(function(d) { return y(d.EnergiaEolica	); });
+  
+  // define the 3rd line
+  var valueline3 = d3.line()
+      .x(function(d) { return x(d.Fecha); })
+      .y(function(d) { return y(d.ConsumoAguaFregadero); });
+  
+  // append the svg obgect to the body of the page
+  // appends a 'group' element to 'svg'
+  // moves the 'group' element to the top left margin
+  var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+            
+  xAxis=svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+  
+  // Get the data
+  d3.csv("SmartHouse.csv", function(error, data) {
+    if (error) throw error;
+  
+    // format the data
+    data.forEach(function(d) {
+        d.Fecha = parseTime(d.Fecha);
+        d.EnergiaSolar = +d.EnergiaSolar;
+        d.EnergiaEolica = +d.EnergiaEolica;
+    });
+  
+    // Scale the range of the data
+    x.domain([parseDate("2021-01-20 00:00:00"),parseDate("2021-01-20 23:00:00")]);
+    y.domain([0, d3.max(data, function(d) {
+      return Math.max(d.EnergiaSolar, d.EnergiaEolica); })]);
+    
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip = svg.append("defs").append("svg:clipPath")
+      .attr("id", "clip")
+      .append("svg:rect")
+      .attr("width", width )
+      .attr("height", height )
+      .attr("x", 0)
+      .attr("y", 0);
+  
+    // Add the valueline path.
+    var line1=svg.append("path")
+        .attr("clip-path", "url(#clip)")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "blue")
+        .attr("d", valueline)
+        .style("stroke-width", 2)
+        .style("fill", "none");
+  
+    // Add the valueline2 path.
+    var line2=svg.append("path")
+        .attr("clip-path", "url(#clip)")
+        .data([data])
+        .attr("class", "line")
+        .style("stroke", "red")
+        .attr("d", valueline2)
+        .style("stroke-width", 2)
+        .style("fill", "none");
+    
+  
+  
+    // Add the X Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+  
+    // Add the Y Axis
+    svg.append("g")
+        .call(d3.axisLeft(y));
+
+    var text1=svg.append("text")
+      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].EnergiaSolar)+")")
+      .attr("dy", ".35em")
+      .attr("text-anchor", "start")
+      .style("fill", "blue")
+      .text("Consumo Agua Lavadora");
+
+    var text2=svg.append("text")
+      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].EnergiaEolica)+")")
+      .attr("dy", ".35em")
+      .attr("text-anchor", "start")
+      .style("fill", "red")
+      .text("Consumo Agua Lavavajillas");
+
+  
+
+    function updateMin(){
+
+           // Get the value of the button
+           val = (this.value)
+           xmin=d3.timeParse("%Y-%m-%dT%H:%M")(val)
+
+           try {
+            x.domain([xmin,xmax])
+          } catch (error) {
+            x.domain([xmin,parseDate("2021-01-20 23:00:00")])
+          }
+          
+
+
+           // Update X axis and line position
+           
+          xAxis.transition().duration(1000).call(d3.axisBottom(x))
+
+          line1
+            .transition()
+            .duration(1000)
+            .attr("d", valueline);
+          line2
+            .transition()
+            .duration(1000)
+            .attr("d", valueline2);
+    
+
+
+
+              
+        }
+    function updateMax(){
+
+           // Get the value of the button
+           val = (this.value)
+           xmax=d3.timeParse("%Y-%m-%dT%H:%M")(val)
+
+           try {
+            x.domain([xmin,xmax])
+          } catch (error) {
+            x.domain([parseDate("2015-01-01 00:00:00"),xmax])
+          }
+
+
+           // Update X axis and line position
+           
+          xAxis.transition().duration(1000).call(d3.axisBottom(x))
+
+          line1
+            .transition()
+            .duration(1000)
+            .attr("d", valueline);
+          line2
+            .transition()
+            .duration(1000)
+            .attr("d", valueline2);
+          
+
+          
+          
+          text1
+            .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].EnergiaSolar)+")");
+          
+          text2 
+            .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].EnergiaEolica)+")");
+     
+        }
+    //Activate buttons
+    d3.select("#buttonXMin").on("input", updateMin )
+    d3.select("#buttonXMax").on("input", updateMax )
+  
+  });
+  
+  </script>
