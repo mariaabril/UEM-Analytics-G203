@@ -114,8 +114,7 @@ var step = 5;
 
 // Determine a suitable range of the temperature scale
 var domain = [
-  step * Math.floor(minTemp / step),
-  step * Math.ceil(maxTemp / step)
+  -10,35
   ];
 
 if (minTemp - domain[0] < 0.66 * step)
