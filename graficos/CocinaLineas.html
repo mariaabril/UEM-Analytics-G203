@@ -123,21 +123,21 @@
         .call(d3.axisLeft(y));
 
     var text1=svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].ConsumoAguaLavadora)+")")
+      .attr("transform", "translate("+(width+3)+","+10+")")
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "blue")
       .text("Consumo Agua Lavadora");
 
     var text2=svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].ConsumoAguaLavavajillas)+")")
+      .attr("transform", "translate("+(width+3)+","+30+")")
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "red")
       .text("Consumo Agua Lavavajillas");
 
     var text3=svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].ConsumoAguaFregadero)+")")
+      .attr("transform", "translate("+(width+3)+","+50+")")
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "green")

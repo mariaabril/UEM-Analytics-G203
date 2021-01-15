@@ -5,7 +5,7 @@
 <input type="datetime-local" id="buttonXMin" value="2015-01-01T00:00:00">
 
 <!-- Add a radio button -->
-<input type="datetime-local" id="buttonXMax" value=2019-12-31T23:00:00>
+<input type="datetime-local" id="buttonXMax" value=2021-01-20T23:00:00>
 <!-- Load d3.js -->
 <script src="https://d3js.org/d3.v4.js"></script>
 
@@ -70,7 +70,7 @@
     });
   
     // Scale the range of the data
-    x.domain([parseDate("2019-12-31 00:00:00"),parseDate("2019-12-31 23:00:00")]);
+    x.domain([parseDate("2021-01-20 00:00:00"),parseDate("2021-01-20 23:00:00")]);
     y.domain([0, d3.max(data, function(d) {
       return Math.max(d.ConsumoAguaDucha1, d.ConsumoAguaWC1, d.ConsumoAguaLavabo1); })]);
     
@@ -123,21 +123,21 @@
         .call(d3.axisLeft(y));
 
     var text1=svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].ConsumoAguaDucha1)+")")
+      .attr("transform", "translate("+(width+3)+","+10+")")
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "blue")
       .text("Consumo Agua Ducha");
 
     var text2=svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].ConsumoAguaWC1)+")")
+      .attr("transform", "translate("+(width+3)+","+30+")")
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "red")
       .text("Consumo Agua WC");
 
     var text3=svg.append("text")
-      .attr("transform", "translate("+(width+3)+","+y(data[data.length-1].ConsumoAguaLavabo1)+")")
+      .attr("transform", "translate("+(width+3)+","+50+")")
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
       .style("fill", "green")
@@ -153,8 +153,9 @@
            try {
             x.domain([xmin,xmax])
           } catch (error) {
-            x.domain([xmin,parseDate("2019-12-31 23:00:00")])
+            x.domain([xmin,parseDate("2021-01-20 23:00:00")])
           }
+          
 
 
            // Update X axis and line position
