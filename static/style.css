@@ -1,0 +1,9 @@
+footer{
+    text-align: center;
+    width: 100%;
+    bottom: 1px;  
+    color:white;              
+}
+div[role="alert"]{
+    width: 100%;
+}

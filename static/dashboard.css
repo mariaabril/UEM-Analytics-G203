@@ -1,0 +1,84 @@
+#dashboard_rooms{
+  background: lightgray;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 100%;
+  grid-column-start: 1;
+  grid-column-end: 9;
+  grid-row-start: 4;
+  grid-row-end: 4;
+  border-radius: 8px;
+}
+
+#todo_rooms{
+  display: grid;
+  grid-template-columns: 105px 105px 200px 200px 105px 61px 105px 105px;
+  grid-template-rows: 40px 40px 20px 460px;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  text-align: center;
+}
+#todo_baldosas{
+  display: grid;
+  grid-template-columns: 105px 105px 200px 200px 105px 61px 105px 105px;
+  grid-template-rows: 40px 40px 20px 460px 460px;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  text-align: center;
+
+}
+#dashboard_baldosas{
+  background: lightgray;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+  grid-column-start: 1;
+  grid-column-end: 9;
+  grid-row-start: 4;
+  grid-row-end: 4;
+  border-radius: 8px;
+}
+
+#buttonXMin{
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}
+
+#buttonXMax{
+  grid-column-start: 4;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}
+#house_dropbtn{
+  grid-column-start: 6;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}
+#labelMin{
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  color: #14c8ce;
+}
+#labelMax{
+  grid-column-start: 4;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  color: #14c8ce;
+}
+
+#predicciones{
+  display: grid;
+  grid-template-columns: 105px 105px 200px 200px 105px 61px 105px 105px;
+  grid-template-rows: 40px 40px 460px;
+  grid-column-gap: 15px;
+  margin-bottom: 78px;
+  margin-top: 50px;
+  text-align: center;
+}
