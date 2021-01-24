@@ -1,0 +1,20 @@
+<!--Filtros para seleccionar los distintos sensores segun su tipo-->
+<div id="myBtnContainer">
+    <button class="btn active" onclick="filterSelection('all')"> Todo</button>
+        <div class="dropdown">
+            <button class="btn" onclick="filterSelection('sens')">Sensores</i></button>
+            <div class="dropdown-content drop-all">
+            <button class="btn" onclick="filterSelection('puerta')" style="width: 100%">Puertas</button>
+            <button class="btn" onclick="filterSelection('temp')" style="width: 100%">Temperatura</button>
+            <button class="btn" onclick="filterSelection('win')" style="width: 100%">Ventanas/Persianas</button>
+            <button class="btn" onclick="filterSelection('bulb')" style="width: 100%">Luz</button>
+            <button class="btn" onclick="filterSelection('wat')" style="width: 100%">Agua</button>
+            <button class="btn" onclick="filterSelection('heat')" style="width: 100%">Calefacción</button>
+            <button class="btn" onclick="filterSelection('ac')" style="width: 100%">Aire acondicionado</button>
+            </div>  
+        </div>      
+    </button>
+    <button class="btn" onclick="filterSelection('electr')"> Electrodomesticos</button>
+    <button class="btn" onclick="filterSelection('gener')"> Generacion de energia</button>
+    <button class="btn" onclick="filterSelection('tiempo')"> Tiempo atmosférico</button>
+</div>

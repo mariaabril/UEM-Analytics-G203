@@ -1,0 +1,23 @@
+<!--Pagina no econtrada, hereda de la base_session ya que no queremos tener la ayuda de las otras paginas-->
+{% extends 'base/base_session.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <html>
+        <head>
+            <title>Page not found!</title>
+    </head>
+    <body>
+        <div style="text-align: center; padding-top: 5%; width: 100%;">
+            <h1 style="color: white;">La pagina que intentas buscar no existe!</h1>
+                <p>
+                    <i class="far fa-frown" style="font-size:50px; color: white;"></i>
+                </p> 
+                <br>
+            <a href="login" style="font-size: large;">Si quieres iniciar sesión pulsa aquí</a>
+        </div>
+    </body>
+    </html>
+
+{% endblock %}

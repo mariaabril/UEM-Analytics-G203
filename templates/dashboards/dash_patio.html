@@ -1,0 +1,409 @@
+{% extends 'base/base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}  
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>  
+  <!-- Color Scale -->
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+  <body>    
+    <div id="todo_baldosas"> 
+    <h3 id="labelMin">Filtro fecha MÍNINIMA</h3>
+    <h3 id="labelMax">Filtro fecha MÁXIMA</h3>
+    <input type="datetime-local" id="buttonXMin" value="2021-01-20T00:00:00">
+    <input type="datetime-local" id="buttonXMax" value=2021-01-20T23:00:00>    
+
+    <div class="dropdown" id="house_dropbtn">
+    {% include 'dropdown.html' %}  
+    </div> 
+    <div id="dashboard_baldosas" style="grid-row-start: 4;grid-row-end: 6;">
+      <div id="varios_temp"></div> 
+      <div id="hola"></div> 
+      <div id="graph3" style="grid-column:span 2;"></div> 
+    </div> 
+  </div>
+<script>
+      var formatDecimal = d3.format(".1f")
+      var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
+      var margin = {top: 20, right: 15, bottom: 50, left: 70},
+          width = 460 - margin.left - margin.right,
+          height = 450 - margin.top - margin.bottom;
+      
+      var svg = d3.select("#varios_temp")
+        .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+      
+      var x1 = d3.scaleTime().range([0, width]);      
+      var y1 = d3.scaleLinear().range([height, 0]);
+
+      var valueline = d3.line()
+          .x(function(d) { return x1(d.Fecha); })
+          .y(function(d) { return y1(d.EnergiaSolar); });
+      var valueline2 = d3.line()
+          .x(function(d) { return x1(d.Fecha); })
+          .y(function(d) { return y1(d.EnergiaEolica); });
+      
+      var svg1 = d3.select("#hola").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+
+      xAxis1=svg1.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x1));
+      
+      d3.csv("templates/graficos/SmartHouse.csv",     
+      function(error, data) {
+
+        if(error) throw error;
+
+        data1=data;
+        data2=data;
+
+        var myColor = d3.scaleOrdinal()
+          .range(d3.schemeSet2);
+    
+        var x = d3.scaleTime()
+          .domain([parseDate("2021-01-20 00:00:00"),parseDate("2021-01-20 17:00:00")])
+          .range([ 0, width ]);
+        xAxis=svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+    
+        var y = d3.scaleLinear()
+          .domain( [12,30])
+          .range([ height, 0 ]);
+        svg.append("g")
+          .call(d3.axisLeft(y));
+
+        var clip = svg.append("defs").append("svg:clipPath")
+            .attr("id", "clip")
+            .append("svg:rect")
+            .attr("width", width )
+            .attr("height", height )
+            .attr("x", 0)
+            .attr("y", 0);
+                  
+        var dataFilter = data.map(function(d){return {date: parseDate(d.Fecha), value:d.TempBano1} })      
+        
+        var line = svg
+          .append("path")
+            .attr("clip-path", "url(#clip)")
+            .datum(dataFilter)
+            .attr("d", d3.line()
+              .x(function(d) { return x(d.date) })
+              .y(function(d) { return y(+d.value) })
+            )
+            .attr("stroke", "rgb(11, 190, 146)")
+            .style("stroke-width", 6)           
+            .style("fill", "none")
+          
+        var idleTimeout
+        function idled() { idleTimeout = null; }
+    
+        data1.forEach(function(d) {
+            d.Fecha = parseDate(d.Fecha);
+            d.EnergiaSolar = +d.EnergiaSolar;
+            d.EnergiaEolica = +d.EnergiaEolica;
+          });
+        
+        x1.domain([parseDate("2021-01-20 00:00:00"),parseDate("2021-01-20 17:00:00")]);y1.domain([0,1]);
+        
+        var clip1 = svg1.append("defs").append("svg:clipPath")
+        .attr("id", "clip1")
+        .append("svg:rect")
+        .attr("width", width )
+        .attr("height", height )
+        .attr("x", 0)
+        .attr("y", 0);
+
+        var line1=svg1.append("path")
+            .attr("clip-path", "url(#clip1)")
+            .data([data1])
+            .attr("class", "line")
+            .style("stroke", "orange")
+            .attr("d", valueline)
+            .style("stroke-width", 4)           
+            .style("fill", "none");
+    
+        var line2=svg1.append("path")
+            .attr("clip-path", "url(#clip1)")
+            .data([data1])
+            .attr("class", "line")
+            .style("stroke", "white")
+            .attr("d", valueline2)
+            .style("stroke-width", 4)           
+            .style("fill", "none");
+        
+        svg1.append("g")
+            .call(d3.axisLeft(y1));
+        var text1=svg1.append("text")
+          .attr("transform", "translate(270,"+10+")")
+          .attr("dy", ".35em")
+          .attr("text-anchor", "start")
+          .style("fill", "orange")
+          .text("Solar");
+
+        var text2=svg1.append("text")
+          .attr("transform", "translate(270,"+30+")")
+          .attr("dy", ".35em")
+          .attr("text-anchor", "start")
+          .style("fill", "white")
+          .text("Eólica");
+      
+        svg1.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -50)
+          .attr("x",0 - (height / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Generación de energía");   
+
+        svg1.append("text")             
+          .attr("transform",
+                "translate(" + (width/2) + " , 425)")
+          .style("text-anchor", "middle")
+          .text("Fecha");
+
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -50)
+          .attr("x",0 - (height / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Temperatura (ºC)");  
+
+        svg.append("text")             
+          .attr("transform",
+                "translate(" + (width/2) + " , 425)")
+          .style("text-anchor", "middle")
+          .text("Fecha");
+
+          svg2.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -50)
+          .attr("x",0 - (height / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Consumo de agua (L)");  
+
+        svg2.append("text")             
+          .attr("transform",
+                "translate(" + (width/2) + " , 425)")
+          .style("text-anchor", "middle")
+          .text("Fecha");
+
+
+ 
+        function updateMin(){
+          val = (this.value)
+          xmin=d3.timeParse("%Y-%m-%dT%H:%M")(val)
+
+          try {
+            x.domain([xmin,xmax])
+          } catch (error) {
+            x.domain([xmin,parseDate("2021-01-20 17:00:00")])
+          }  
+          xAxis.transition().duration(1000).call(d3.axisBottom(x))
+          line
+            .transition()
+            .duration(1000)
+            .attr("d", d3.line()
+              .x(function(d) { return x(d.date) })
+              .y(function(d) { return y(+d.value) })
+            )
+          
+          try {
+                x1.domain([xmin,xmax])
+            } catch (error) {
+                x1.domain([xmin,parseDate("2021-01-20 17:00:00")])
+            }
+              
+          xAxis1.transition().duration(1000).call(d3.axisBottom(x1))
+
+          line1
+            .transition()
+            .duration(1000)
+            .attr("d", valueline)
+          line2
+            .transition()
+            .duration(1000)
+            .attr("d", valueline2)
+        }
+
+        function updateMax(){
+
+          // Get the value of the button
+          val = (this.value)
+          xmax=d3.timeParse("%Y-%m-%dT%H:%M")(val)
+
+          try {
+            x.domain([xmin,xmax])
+          } catch (error) {
+            x.domain([parseDate("2015-01-01 00:00:00"),xmax])
+          }
+          // Update X axis and line position
+          
+          xAxis.transition().duration(1000).call(d3.axisBottom(x))
+          line
+          .transition()
+          .duration(1000)
+          .attr("d", d3.line()
+            .x(function(d) { return x(d.date) })
+            .y(function(d) { return y(+d.value) })
+          )
+
+          try {
+                x1.domain([xmin,xmax])
+            } catch (error) {
+                x1.domain([parseDate("2015-01-01 00:00:00"),xmax])
+            }
+            // Update X axis and line position
+          xAxis1.transition().duration(1000).call(d3.axisBottom(x1))
+          line1
+            .transition()
+            .duration(1000)
+            .attr("d", valueline);
+          line2
+            .transition()
+            .duration(1000)
+            .attr("d", valueline2);
+          line3
+            .transition()
+            .duration(1000)
+            .attr("d", valueline3);          
+                
+          }
+
+          //Activate buttons
+        d3.select("#buttonXMin").on("input", updateMin )
+        d3.select("#buttonXMax").on("input", updateMax )
+  
+    })   
+
+    // append the svg object to the body of the page
+var svg2 = d3.select("#graph3")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+//Read the data2
+d3.csv("templates/graficos/SmartHouse.csv",
+
+  // When reading the csv, I must format variables:
+  function(d){
+    return { date : parseDate(d.Fecha), value :Number(d.ConsumoAguaExterior.trim().slice(1))}
+  },
+
+  // Now I can use this data2set:
+  function(data2) {
+
+    // Add X axis --> it is a date format
+    var x2 = d3.scaleTime()
+      .domain(d3.extent(data2, function(d) { return d.date; }))
+      .range([ 0, width ]);
+    xAxis2 = svg2.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x2));
+
+    // Add Y axis
+    var y2 = d3.scaleLinear()
+      .domain([0, d3.max(data2, function(d) { return +d.value; })])
+      .range([ height, 0 ]);
+    yAxis = svg2.append("g")
+      .call(d3.axisLeft(y2));
+
+    // Add a clipPath: everything out of this area won't be drawn.
+    var clip2 = svg2.append("defs").append("svg:clipPath")
+        .attr("id", "clip2")
+        .append("svg:rect")
+        .attr("width", width )
+        .attr("height", height )
+        .attr("x", 0)
+        .attr("y", 0);
+
+    // Add brushing
+    var brush = d3.brushX()                   // Add the brush feature using the d3.brush function
+        .extent( [ [0,0], [width,height] ] )  // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+        .on("end", updateChart)               // Each time the brush selection changes, trigger the 'updateChart' function
+
+    // Create the line variable: where both the line and the brush take place
+    var line8 = svg2.append('g')
+      .attr("clip-path", "url(#clip2)")
+
+    // Add the line
+    line8.append("path")
+      .datum(data2)
+      .attr("class", "line")  // I add the class line to be able to modify this line later on.
+      .attr("fill", "none")
+      .attr("stroke", "cornflowerblue")
+      .attr("stroke-width", 4)
+      .attr("d", d3.line()
+        .x(function(d) { return x2(d.date) })
+        .y(function(d) { return y2(d.value) })
+        )
+
+    // Add the brushing
+    line8
+      .append("g")
+        .attr("class", "brush")
+        .call(brush);
+
+    // A function that set idleTimeOut to null
+    var idleTimeout
+    function idled() { idleTimeout = null; }
+
+    // A function that update the chart for given boundaries
+    function updateChart() {
+
+      // What are the selected boundaries?
+      extent = d3.event.selection
+
+      // If no selection, back to initial coordinate. Otherwise, update X axis domain
+      if(!extent){
+        if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+        x2.domain([ 4,8])
+      }else{
+        x2.domain([ x2.invert(extent[0]), x2.invert(extent[1]) ])
+        line8.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+      }
+
+      // Update axis and line8 position
+      xAxis2.transition().duration(1000).call(d3.axisBottom(x2))
+      line8
+          .select('.line')
+          .transition()
+          .duration(1000)
+          .attr("d", d3.line()
+            .x(function(d) { return x2(d.date) })
+            .y(function(d) { return y2(d.value) })
+          )
+    }
+
+    // If user double click, reinitialize the chart
+    svg2.on("dblclick",function(){
+      x2.domain(d3.extent(data2, function(d) { return d.date; }))
+      xAxis2.transition().call(d3.axisBottom(x2))
+      line8
+        .select('.line')
+        .transition()
+        .attr("d", d3.line()
+          .x(function(d) { return x2(d.date) })
+          .y(function(d) { return y2(d.value) })
+      )
+    });
+})
+    </script>
+{% endblock %}     

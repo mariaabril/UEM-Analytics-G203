@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <meta charset="utf-8"/>  
+        <title> {% block title %} {% endblock %}</title>     
+        <header>
+            <div id="header_PITSALUMA">
+                <img src= "img/LOGO_pitsaluma_sin_fondo.jpg" alt="PitsaLuma LOGO" style="display: inline-block; float: left; height:100px"/>
+                <h1 class= "tituloPag">{% block tituloPag %} {{ tituloPag }} {% endblock %}</h1>
+            </div>
+            <!--LINKS A CSS-->
+            <link rel="stylesheet" href="{{ url_for('static', filename='plano.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='dropdown.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='filtros.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='glowbutton.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='tooltip.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='office.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='patio.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='salon.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='kitchen.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='banos.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='habs.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='pasillo.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+            <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}"/>
+
+            {% block header %} 
+            
+            {% endblock %}
+        </header> 
+
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        
+        
+        <body> 
+           {% include 'messages.html' %}
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer>
+            <br>
+            PitsaLuma &copy; All Rights Reserved
+        </footer>   
+    </body>
+</html>

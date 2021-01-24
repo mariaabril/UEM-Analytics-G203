@@ -1,0 +1,262 @@
+{% extends 'base/base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}  
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>  
+  <!-- Color Scale -->
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+ <div id="todo_rooms"> 
+    <h3 id="labelMin">Filtro fecha MÍNINIMA</h3>
+    <h3 id="labelMax">Filtro fecha MÁXIMA</h3>
+    <input type="datetime-local" id="buttonXMin" value="2021-01-20T00:00:00">
+    <input type="datetime-local" id="buttonXMax" value=2021-01-20T23:00:00>    
+
+    
+    <div class="dropdown" id="house_dropbtn">
+    {% include 'dropdown.html' %}  
+    </div>
+    <div id="dashboard_rooms">
+      <div id="varios_temp"></div> 
+      <div id="hola"></div> 
+    </div> 
+  </div>
+  <script>
+    var formatDecimal = d3.format(".1f")
+    var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
+    // set the dimensions and margins of the graph
+    var margin = {top: 20, right: 15, bottom: 50, left: 70},
+        width = 460 - margin.left - margin.right,
+        height = 450 - margin.top - margin.bottom;
+      
+      // append the svg object to the body of the page
+      var svg = d3.select("#varios_temp")
+        .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+      // set the ranges
+      var x1 = d3.scaleTime().range([0, width]);
+      
+      var y1 = d3.scaleLinear().range([height, 0]);
+      
+      // define the 1st line
+      var valueline = d3.line()
+          .x(function(d) { return x1(d.Fecha); })
+          .y(function(d) { return y1(d.GastoElecHab1); });
+      
+    
+      
+      // append the svg obgect to the body of the page
+      // appends a 'group' element to 'svg'
+      // moves the 'group' element to the top left margin
+      var svg1 = d3.select("#hola").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform",
+                  "translate(" + margin.left + "," + margin.top + ")");
+                  
+      xAxis1=svg1.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x1));
+      
+      //Read the data
+      d3.csv("templates/graficos/SmartHouse.csv",     
+      function(error, data) {
+
+          if(error) throw error;
+
+          data1=data;
+          // A color scale: one color for each group
+          var myColor = d3.scaleOrdinal()
+            .range(d3.schemeSet2);
+      
+          // Add X axis --> it is a date format
+          var x = d3.scaleTime()
+            .domain([parseDate("2021-01-20 00:00:00"),parseDate("2021-01-20 17:00:00")])
+            .range([ 0, width ]);
+          xAxis=svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+      
+          // Add Y axis
+          var y = d3.scaleLinear()
+            .domain( [12,30])
+            .range([ height, 0 ]);
+          svg.append("g")
+            .call(d3.axisLeft(y));
+
+          
+          // Add a clipPath: everything out of this area won't be drawn.
+          var clip = svg.append("defs").append("svg:clipPath")
+              .attr("id", "clip")
+              .append("svg:rect")
+              .attr("width", width )
+              .attr("height", height )
+              .attr("x", 0)
+              .attr("y", 0);
+          
+          
+          var dataFilter = data.map(function(d){return {date: parseDate(d.Fecha), value:d.TempHabitacion1} })
+
+      
+          // Initialize line with group a
+          var line = svg
+            .append("path")
+              .attr("clip-path", "url(#clip)")
+              .datum(dataFilter)
+              .attr("d", d3.line()
+                .x(function(d) { return x(d.date) })
+                .y(function(d) { return y(+d.value) })
+              )
+              .attr("stroke", "rgb(11, 190, 146)")
+              .style("stroke-width", 6)
+              .style("fill", "none")
+          
+          // A function that set idleTimeOut to null
+          var idleTimeout
+          function idled() { idleTimeout = null; }
+      
+      
+
+          // format the data
+          data1.forEach(function(d) {
+              d.Fecha = parseDate(d.Fecha);
+              d.GastoElecHab1 = +d.GastoElecHab1;
+            
+          });
+      
+          // Scale the range of the data
+          x1.domain([parseDate("2021-01-20 00:00:00"),parseDate("2021-01-20 17:00:00")]);
+          y1.domain([0, d3.max(data1, function(d) {
+          return Math.max(d.GastoElecHab1); })]);
+          
+          // Add a clipPath: everything out of this area won't be drawn.
+          var clip1 = svg1.append("defs").append("svg:clipPath")
+          .attr("id", "clip1")
+          .append("svg:rect")
+          .attr("width", width )
+          .attr("height", height )
+          .attr("x", 0)
+          .attr("y", 0);
+      
+          // Add the valueline path.
+          var line1=svg1.append("path")
+              .attr("clip-path", "url(#clip1)")
+              .data([data1])
+              .attr("class", "line")
+              .style("stroke", "rgb(238, 196, 10)")
+              .attr("d", valueline)
+              .style("stroke-width", 6)
+              .style("fill", "none");
+      
+     
+          // Add the Y Axis
+          svg1.append("g")
+              .call(d3.axisLeft(y1));
+
+          svg1.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -50)
+          .attr("x",0 - (height / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Consumo de luz (kW)");  
+
+        svg1.append("text")             
+          .attr("transform",
+                "translate(" + (width/2) + " , 425)")
+          .style("text-anchor", "middle")
+          .text("Fecha");
+
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -50)
+          .attr("x",0 - (height / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Temperatura (ºC)");  
+
+        svg.append("text")             
+          .attr("transform",
+                "translate(" + (width/2) + " , 425)")
+          .style("text-anchor", "middle")
+          .text("Fecha");
+
+          function updateMin(){
+
+            // Get the value of the button
+            val = (this.value)
+            xmin=d3.timeParse("%Y-%m-%dT%H:%M")(val)
+
+            try {
+              x.domain([xmin,xmax])
+            } catch (error) {
+              x.domain([xmin,parseDate("2021-01-20 17:00:00")])
+            } // Update X axis and line position
+            xAxis.transition().duration(1000).call(d3.axisBottom(x))
+
+            line
+              .transition()
+              .duration(1000)
+              .attr("d", d3.line()
+                .x(function(d) { return x(d.date) })
+                .y(function(d) { return y(+d.value) })
+            )            
+            try {
+                  x1.domain([xmin,xmax])
+              } catch (error) {
+                  x1.domain([xmin,parseDate("2021-01-20 17:00:00")])
+              }
+              // Update X axis and line position            
+              xAxis1.transition().duration(1000).call(d3.axisBottom(x1))
+              line1
+                  .transition()
+                  .duration(1000)
+                  .attr("d", valueline);
+          }
+
+          function updateMax(){
+            // Get the value of the button
+            val = (this.value)
+            xmax=d3.timeParse("%Y-%m-%dT%H:%M")(val)
+            try {
+              x.domain([xmin,xmax])
+            } catch (error) {
+              x.domain([parseDate("2015-01-01 00:00:00"),xmax])
+            }
+            // Update X axis and line position
+            xAxis.transition().duration(1000).call(d3.axisBottom(x))
+
+            line
+            .transition()
+            .duration(1000)
+            .attr("d", d3.line()
+              .x(function(d) { return x(d.date) })
+              .y(function(d) { return y(+d.value) })
+            )
+            try {
+                  x1.domain([xmin,xmax])
+              } catch (error) {
+                  x1.domain([parseDate("2015-01-01 00:00:00"),xmax])
+              }
+              // Update X axis and line position
+              
+              xAxis1.transition().duration(1000).call(d3.axisBottom(x1))
+              line1
+                  .transition()
+                  .duration(1000)
+                  .attr("d", valueline); 
+            }
+          //Activate buttons
+          d3.select("#buttonXMin").on("input", updateMin )
+          d3.select("#buttonXMax").on("input", updateMax )
+      })        
+    </script>
+{% endblock %}     
